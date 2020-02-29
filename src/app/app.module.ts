@@ -1,16 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgRedux, NgReduxModule, DevToolsExtension } from '@angular-redux/store';
 
 import { AppComponent } from './app.component';
+import { IAppState, rootReducer, INITIAL_STATE } from './store';
+
+import { TodosModule } from './tasking/todos.module';
+import { MessagingModule } from './messaging/messaging.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    NgReduxModule,
+    TodosModule,
+    MessagingModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(ngRedux: NgRedux<IAppState>){
+    ngRedux.configureStore(rootReducer, INITIAL_STATE);
+  }
+ }
