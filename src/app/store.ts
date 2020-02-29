@@ -1,20 +1,20 @@
-import { tassign } from 'tassign'; 
-import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, CLEAR_TODOS, INCREMENT, DECREMENT } from './actions'; 
+import { tassign } from 'tassign';
+import { ADD_TODO, TOGGLE_TODO, REMOVE_TODO, CLEAR_TODOS, INCREMENT, DECREMENT } from './actions';
 
 export interface IAppState {
   todos: any[];
-  lastUpdate: Date; 
+  lastUpdate: Date;
   newMessages: number;
 }
 
-export const INITIAL_STATE: IAppState = { 
+export const INITIAL_STATE: IAppState = {
   todos: [],
   lastUpdate: null,
   newMessages: 0
-}
+};
 
 function addTodo(state, action) {
-  var newTodo = { id: state.todos.length + 1, title: action.title };
+  const newTodo = { id: state.todos.length + 1, title: action.title };
 
   return tassign(state, {
     todos: state.todos.concat(newTodo),
@@ -23,10 +23,10 @@ function addTodo(state, action) {
 }
 
 function toggleTodo(state, action) {
-  var todo = state.todos.find(t => t.id === action.id);
+  const todo = state.todos.find(t => t.id === action.id);
 
-  // Now, we need to find the position of this item in the array. 
-  var index = state.todos.indexOf(todo);
+  // Now, we need to find the position of this item in the array.
+  const index = state.todos.indexOf(todo);
 
   return tassign(state, {
     todos: [
@@ -70,5 +70,5 @@ export function rootReducer(state: IAppState, action): IAppState {
     case DECREMENT: return decrement(state, action);
   }
 
-  return state; 
+  return state;
 }
